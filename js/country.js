@@ -1,24 +1,27 @@
+
 const loadCountries = async() => {
     const URL = 'https://restcountries.com/v3.1/all';
     try{
         const res = await fetch(URL)
         const data = await res.json();
-        displayData(data);
+        displayData(data.slice(0, 3));
     }
     catch(error){
         console.log(error);
     }
+    
 }
 
 const displayData = countries => {
     console.log(countries);
     const countriesInfoContainer = document.getElementById('countries-info');
+    countriesInfoContainer.innerHTML = '';
     countries.forEach(country => {
         console.log(country.cca2);
         const countriesInfo = document.createElement('div');
         countriesInfo.innerHTML = `
-            <div class="card w-96 bg-base-100 shadow-xl">
-            <figure><img src="${country.flags.png}" alt="Shoes" /></figure>
+            <div class="card w-full h-96 mx-auto bg-base-100 shadow-2xl">
+            <figure class = "px-10 pt-10"><img src="${country.flags.png}" alt="Shoes" /></figure>
             <div class="card-body ">
              <h2 class="card-title justify-center">${country.name.common}</h2>
             
@@ -43,9 +46,19 @@ const countryDetails = async(id) => {
     catch(error){
         console.log(error);
     }
-    
+
 }
 
-
-
 loadCountries();
+
+const showAllData = showAllDataTogether = async () =>{
+    const URL = 'https://restcountries.com/v3.1/all';
+    try{
+        const res = await fetch(URL)
+        const data = await res.json();
+        displayData(data);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
